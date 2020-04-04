@@ -10,4 +10,8 @@
     <pattern>/*</pattern>
   </decorator>
   
+  <decorator name="admin" page="admin-default.jsp">
+    <pattern>/admin*</pattern>
+  </decorator>
+  
 </decorators>
