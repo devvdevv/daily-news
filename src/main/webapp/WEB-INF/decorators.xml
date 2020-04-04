@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/decorators">
+ 
+  <!-- Excludes will never be decorated by Sitemesh. -->
+  <excludes>
+    <pattern>/api*</pattern>
+  </excludes>
+ 
+  <decorator name="web" page="web-default.jsp">
+    <pattern>/*</pattern>
+  </decorator>
+  
+</decorators>
