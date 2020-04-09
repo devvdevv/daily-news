@@ -16,7 +16,7 @@ public class CategoryDAO implements ICategoryDAO {
 	public Connection getConnection() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/daily_new";
+			String url = "jdbc:mysql://localhost:3306/daily_news";
 			String user = "root";
 			String password = "1234";
 			return DriverManager.getConnection(url, user, password);

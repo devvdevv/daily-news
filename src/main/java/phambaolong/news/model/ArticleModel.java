@@ -6,6 +6,7 @@ public class ArticleModel extends AbstractModel {
 	private String shortDescription;
 	private String content;
 	private Long catogoryId;
+	private Long userId;
 	
 	public String getTitle() {
 		return title;
@@ -37,5 +38,10 @@ public class ArticleModel extends AbstractModel {
 	public void setCatogoryId(Long catogoryId) {
 		this.catogoryId = catogoryId;
 	}
-	
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 }
