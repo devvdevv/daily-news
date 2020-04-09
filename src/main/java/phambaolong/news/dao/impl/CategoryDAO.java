@@ -59,7 +59,6 @@ public class CategoryDAO implements ICategoryDAO {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-
 		}
 	}
 
