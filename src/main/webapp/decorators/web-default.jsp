@@ -22,7 +22,12 @@
 	<jsp:include page="/common/web/footer.jsp" />
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="<c:url value='/style/web/vendor/jquery/jquery.min.js' />"></script>
+	<script src="<c:url value='/style/web/vendor/bootstrap/js/bootstrap.bundle.min.js' />"></script>
+	
+	<!-- 
+	 <script src="/style/web/vendor/jquery/jquery.min.js"></script>
+	<script src="/style/web/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	 -->
 </body>
 </html>

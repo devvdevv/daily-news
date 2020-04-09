@@ -1,4 +1,4 @@
-package phambaolong.news.dailynews.controller.admin;
+package phambaolong.news.controller.admin;
 
 import java.io.IOException;
 
