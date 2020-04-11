@@ -29,6 +29,7 @@ CREATE TABLE article (
 	id bigint PRIMARY KEY auto_increment NOT NULL,
     title varchar(255) NULL,
     thumbnail varchar(255) NULL,
+    shortdescription TEXT NULL,
     content TEXT NULL,
     user_id bigint NOT NULL,
     category_id bigint NOT NULL,
