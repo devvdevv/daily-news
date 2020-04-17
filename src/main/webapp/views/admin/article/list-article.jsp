@@ -7,17 +7,22 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Article Management</title>
-	<title>Bootstrap Example</title>
-	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"> -->
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script> -->
+
+	<!-- <c:url value='/style/pagination/jquery.twbsPagination.js' /> -->
+
 </head>
 
 <body>
 	<div class="container">
-		<form action="" id="formSubmit" method="GET">
+		<form action='<c:url value="/admin-article" />' id="formSubmit" method="GET">
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
@@ -36,22 +41,25 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<nav aria-label="Page navigation">
-				<ul class="pagination" id="pagination"></ul>
-			</nav>
+			<ul class="pagination" id="pagination"></ul>
+			<input type="hidden" id="page" name="page" value="">
+			<!-- <input type="hidden" id="itemsOnPage" name="itemsOnPage" value=""> -->
 		</form>
 	</div>
 	<script type="text/javascript">
+		var currentPage = ${page};
 		$(function () {
 			window.pagObj = $('#pagination').twbsPagination({
-				totalPages: 35,
-				visiblePages: 10,
+				totalPages: 10,
+				visiblePages: 5,
+				startPage: currentPage,
 				onPageClick: function (event, page) {
-					console.info(page + ' (from options)');
+					if(currentPage != page){
+						$("#page").val(page);
+						$("#formSubmit").submit();
+					}
 				}
-			}).on('page', function (event, page) {
-				console.info(page + ' (from event listening)');
-			});
+			})
 		});
 	</script>
 </body>

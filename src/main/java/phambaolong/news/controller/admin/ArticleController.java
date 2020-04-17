@@ -23,6 +23,9 @@ public class ArticleController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String page = request.getParameter("page");
+		int currentPage = Integer.parseInt(page);
+		request.setAttribute("page", currentPage);
 		ArticleModel model = new ArticleModel();
 		model.setListItems(articleService.findAll());
 		request.setAttribute("model", model);
