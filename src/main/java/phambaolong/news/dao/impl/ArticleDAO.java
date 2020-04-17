@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import phambaolong.news.dao.IArticleDAO;
 import phambaolong.news.model.ArticleModel;
@@ -31,7 +33,7 @@ public class ArticleDAO implements IArticleDAO {
 		Long id = null;
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO article(title, thumbnail, content, user_id, category_id,");
-		sql.append("createdby, createddate ) VALUES( ?, ?, ?, ?, ?, ?, ?)");
+		sql.append("createdby, createddate, shortdescription ) VALUES( ?, ?, ?, ?, ?, ?, ?, ?)");
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet result = null;
@@ -46,6 +48,7 @@ public class ArticleDAO implements IArticleDAO {
 			statement.setLong(5, newArticle.getCategoryId());
 			statement.setString(6, newArticle.getCreatedBy());
 			statement.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
+			statement.setString(8, newArticle.getShortDescription());
 			
 			statement.executeUpdate();
 			result = statement.getGeneratedKeys();
@@ -174,6 +177,42 @@ public class ArticleDAO implements IArticleDAO {
 				if(statement != null)
 					statement.close();
 			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public List<ArticleModel> findAll() {
+		String sql = "SELECT * FROM article";
+		List<ArticleModel> listArticle = new ArrayList<ArticleModel>();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(sql);
+			result = statement.executeQuery();
+			while (result.next()) {
+				ArticleModel article = new ArticleModel();
+				article.setId(result.getLong("id"));
+				article.setTitle(result.getString("title"));
+				article.setShortDescription(result.getString("shortdescription"));
+				article.setContent(result.getString("content"));
+				listArticle.add(article);
+			}
+			return listArticle;
+		} catch (SQLException e) {
+			return null;
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+				if (statement != null)
+					statement.close();
+				if (result != null)
+					result.close();
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}

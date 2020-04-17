@@ -1,14 +1,16 @@
 package phambaolong.news.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
-public abstract class AbstractModel {
+public abstract class AbstractModel<T> {
 	private Long id;
 	private String createdBy;
 	private Timestamp createdDate;
 	private String modifiedBy;
 	private Timestamp modifiedDate;
 	private Long[] listId;
+	private List<T> listItems;
 	
 	public Long getId() {
 		return id;
@@ -45,5 +47,11 @@ public abstract class AbstractModel {
 	}
 	public void setListId(Long[] listId) {
 		this.listId = listId;
+	}
+	public List<T> getListItems() {
+		return listItems;
+	}
+	public void setListItems(List<T> listItems) {
+		this.listItems = listItems;
 	}
 }

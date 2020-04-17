@@ -1,5 +1,7 @@
 package phambaolong.news.service;
 
+import java.util.List;
+
 import phambaolong.news.model.ArticleModel;
 
 public interface IArticleService {
@@ -7,4 +9,5 @@ public interface IArticleService {
 	ArticleModel findOne(Long id);
 	ArticleModel update(ArticleModel updatedArticle);
 	void delete(Long[] listId);
+	List<ArticleModel> findAll();
 }

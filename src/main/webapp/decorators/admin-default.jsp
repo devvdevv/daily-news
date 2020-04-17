@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title></title>
+<title>Admin Home</title>
 <!-- Custom fonts for this template-->
 <link href="<c:url value='/style/admin/vendor/fontawesome-free/css/all.min.css' />" rel="stylesheet"
 	type="text/css">
@@ -36,7 +36,7 @@
 
 	<!-- Bootstrap core JavaScript-->
 	<script src="<c:url value='/style/admin/vendor/jquery/jquery.min.js' />"></script>
-	<script src="<c:url value='vendor/bootstrap/js/bootstrap.bundle.min.js' />"></script>
+	<script src="<c:url value='/style/admin/vendor/bootstrap/js/bootstrap.bundle.min.js' />"></script>
 
 	<!-- Core plugin JavaScript-->
 	<script src="<c:url value='/style/admin/vendor/jquery-easing/jquery.easing.min.js' />"></script>

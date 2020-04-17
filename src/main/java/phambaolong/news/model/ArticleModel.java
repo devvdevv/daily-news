@@ -1,6 +1,6 @@
 package phambaolong.news.model;
 
-public class ArticleModel extends AbstractModel {
+public class ArticleModel extends AbstractModel<ArticleModel> {
 	private String title;
 	private String thumbnail;
 	private String shortDescription;

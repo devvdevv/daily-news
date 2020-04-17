@@ -1,5 +1,7 @@
 package phambaolong.news.dao;
 
+import java.util.List;
+
 import phambaolong.news.model.ArticleModel;
 
 public interface IArticleDAO {
@@ -7,4 +9,5 @@ public interface IArticleDAO {
 	ArticleModel findOne(Long id);
 	void update(ArticleModel updatedArticle);
 	void delete(Long id);
+	List<ArticleModel> findAll(); 
 }

@@ -1,5 +1,7 @@
 package phambaolong.news.service.impl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import phambaolong.news.dao.IArticleDAO;
@@ -36,6 +38,11 @@ public class ArticleService implements IArticleService {
 			// if yes => delete them first then delete article.
 			articleDAO.delete(id);
 		}
+	}
+
+	@Override
+	public List<ArticleModel> findAll() {
+		return articleDAO.findAll();
 	}
 
 }
