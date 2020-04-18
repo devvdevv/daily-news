@@ -9,5 +9,6 @@ public interface IArticleDAO {
 	ArticleModel findOne(Long id);
 	void update(ArticleModel updatedArticle);
 	void delete(Long id);
-	List<ArticleModel> findAll(); 
+	List<ArticleModel> findAll(Integer limit, Integer offset); 
+	Integer countAll();
 }

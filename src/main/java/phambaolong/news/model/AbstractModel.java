@@ -11,6 +11,7 @@ public abstract class AbstractModel<T> {
 	private Timestamp modifiedDate;
 	private Long[] listId;
 	private List<T> listItems;
+	private Integer totalItems;
 	
 	public Long getId() {
 		return id;
@@ -53,5 +54,11 @@ public abstract class AbstractModel<T> {
 	}
 	public void setListItems(List<T> listItems) {
 		this.listItems = listItems;
+	}
+	public Integer getTotalItems() {
+		return totalItems;
+	}
+	public void setTotalItems(Integer totalItems) {
+		this.totalItems = totalItems;
 	}
 }

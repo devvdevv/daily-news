@@ -183,15 +183,18 @@ public class ArticleDAO implements IArticleDAO {
 	}
 
 	@Override
-	public List<ArticleModel> findAll() {
-		String sql = "SELECT * FROM article";
+	public List<ArticleModel> findAll(Integer limit, Integer offset) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM article");
+		if (limit != null && offset != null) {
+			sql.append(" LIMIT "+limit+" OFFSET "+offset);
+		}
 		List<ArticleModel> listArticle = new ArrayList<ArticleModel>();
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet result = null;
 		try {
 			connection = getConnection();
-			statement = connection.prepareStatement(sql);
+			statement = connection.prepareStatement(sql.toString());
 			result = statement.executeQuery();
 			while (result.next()) {
 				ArticleModel article = new ArticleModel();
@@ -202,6 +205,37 @@ public class ArticleDAO implements IArticleDAO {
 				listArticle.add(article);
 			}
 			return listArticle;
+		} catch (SQLException e) {
+			return null;
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+				if (statement != null)
+					statement.close();
+				if (result != null)
+					result.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public Integer countAll() {
+		String sql = "SELECT count(*) FROM article";
+		Integer counter = 0;
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(sql);
+			result = statement.executeQuery();
+			while (result.next()) {
+				counter = result.getInt(1);
+			}
+			return counter;
 		} catch (SQLException e) {
 			return null;
 		} finally {

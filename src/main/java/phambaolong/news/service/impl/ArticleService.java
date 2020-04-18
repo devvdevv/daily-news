@@ -41,8 +41,13 @@ public class ArticleService implements IArticleService {
 	}
 
 	@Override
-	public List<ArticleModel> findAll() {
-		return articleDAO.findAll();
+	public List<ArticleModel> findAll(Integer limit, Integer offset) {
+		return articleDAO.findAll(limit, offset);
+	}
+
+	@Override
+	public Integer countAll() {
+		return articleDAO.countAll();
 	}
 
 }

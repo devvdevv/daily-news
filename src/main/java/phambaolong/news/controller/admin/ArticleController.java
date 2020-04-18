@@ -26,8 +26,16 @@ public class ArticleController extends HttpServlet {
 		String page = request.getParameter("page");
 		int currentPage = Integer.parseInt(page);
 		request.setAttribute("page", currentPage);
+		
 		ArticleModel model = new ArticleModel();
-		model.setListItems(articleService.findAll());
+		int itemsOnPage = 1;
+		model.setTotalItems(articleService.countAll());
+		int totalPages = (int) Math.ceil((double)(model.getTotalItems() / itemsOnPage));
+		request.setAttribute("totalPages", totalPages);
+		
+		Integer limit = itemsOnPage;
+		Integer offset = (currentPage - 1) * itemsOnPage;
+		model.setListItems(articleService.findAll(limit, offset));
 		request.setAttribute("model", model);
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/article/list-article.jsp");
 		rd.forward(request, response);

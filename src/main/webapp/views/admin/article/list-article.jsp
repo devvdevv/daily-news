@@ -48,9 +48,10 @@
 	</div>
 	<script type="text/javascript">
 		var currentPage = ${page};
+		var totalPages = ${totalPages};
 		$(function () {
 			window.pagObj = $('#pagination').twbsPagination({
-				totalPages: 10,
+				totalPages: totalPages,
 				visiblePages: 5,
 				startPage: currentPage,
 				onPageClick: function (event, page) {
