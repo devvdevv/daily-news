@@ -14,7 +14,7 @@ import phambaolong.news.dao.IArticleDAO;
 import phambaolong.news.model.ArticleModel;
 
 public class ArticleDAO implements IArticleDAO {
-	
+
 	public Connection getConnection() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -27,7 +27,7 @@ public class ArticleDAO implements IArticleDAO {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Long save(ArticleModel newArticle) {
 		Long id = null;
@@ -49,10 +49,10 @@ public class ArticleDAO implements IArticleDAO {
 			statement.setString(6, newArticle.getCreatedBy());
 			statement.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
 			statement.setString(8, newArticle.getShortDescription());
-			
+
 			statement.executeUpdate();
 			result = statement.getGeneratedKeys();
-			while(result.next()) {
+			while (result.next()) {
 				id = result.getLong(1);
 			}
 			connection.commit();
@@ -74,7 +74,7 @@ public class ArticleDAO implements IArticleDAO {
 					statement.close();
 				if (result != null)
 					result.close();
-			} catch(SQLException e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
@@ -104,9 +104,20 @@ public class ArticleDAO implements IArticleDAO {
 			return article;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if(connection != null)
+					connection.close();
+				if(statement != null)
+					statement.close();
+				if(result != null)
+					result.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
-		return null;
 	}
 
 	@Override
@@ -131,7 +142,7 @@ public class ArticleDAO implements IArticleDAO {
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
-			if(connection != null) {
+			if (connection != null) {
 				try {
 					connection.rollback();
 				} catch (SQLException e1) {
@@ -140,9 +151,9 @@ public class ArticleDAO implements IArticleDAO {
 			}
 		} finally {
 			try {
-				if(connection != null)
+				if (connection != null)
 					connection.close();
-				if(statement != null)
+				if (statement != null)
 					statement.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -163,7 +174,7 @@ public class ArticleDAO implements IArticleDAO {
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
-			if(connection != null) {
+			if (connection != null) {
 				try {
 					connection.rollback();
 				} catch (SQLException e1) {
@@ -172,11 +183,11 @@ public class ArticleDAO implements IArticleDAO {
 			}
 		} finally {
 			try {
-				if(connection != null)
+				if (connection != null)
 					connection.close();
-				if(statement != null)
+				if (statement != null)
 					statement.close();
-			} catch(SQLException e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
@@ -192,7 +203,7 @@ public class ArticleDAO implements IArticleDAO {
 				sql.append(" ORDER BY createddate ASC");
 		}
 		if (limit != null && offset != null) {
-			sql.append(" LIMIT "+limit+" OFFSET "+offset);
+			sql.append(" LIMIT " + limit + " OFFSET " + offset);
 		}
 		List<ArticleModel> listArticle = new ArrayList<ArticleModel>();
 		Connection connection = null;
