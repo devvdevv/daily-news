@@ -14,4 +14,8 @@
     <pattern>/admin*</pattern>
   </decorator>
   
+  <decorator name="login" page="login-default.jsp">
+    <pattern>/login*</pattern>
+  </decorator>
+  
 </decorators>
