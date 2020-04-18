@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import phambaolong.news.dao.IUserDAO;
+import phambaolong.news.model.RoleModel;
 import phambaolong.news.model.UserModel;
 
 public class UserDAO implements IUserDAO {
@@ -26,7 +27,8 @@ public class UserDAO implements IUserDAO {
 	
 	@Override
 	public UserModel findBy_username_password_status(String username, String password, int status) {
-		StringBuilder sql = new StringBuilder("SELECT * FROM user");
+		StringBuilder sql = new StringBuilder("SELECT * FROM user AS u");
+		sql.append(" INNER JOIN role AS r ON r.id = u.role_id");
 		sql.append(" WHERE username = ? AND password = ? AND status = ?");
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -48,6 +50,14 @@ public class UserDAO implements IUserDAO {
 				user.setRoleId(result.getLong("role_id"));
 				user.setCreatedBy(result.getString("createdby"));
 				user.setCreatedDate(result.getTimestamp("createddate"));
+				try {
+					RoleModel role = new RoleModel();
+					role.setRoleName(result.getString("role_name"));
+					role.setCode(result.getString("code"));
+					user.setRole(role);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
 			}
 			return user;
 		} catch (SQLException e) {

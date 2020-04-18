@@ -42,8 +42,12 @@ public class HomeController extends HttpServlet {
 			throws ServletException, IOException {
 		UserModel model = FormUtil.toModel(request, UserModel.class);
 		model = userService.findBy_username_password_status(model.getUsername(), model.getPassword(), 1);
-		if (model != null) {
-			response.sendRedirect(request.getContextPath()+"/home");
+		if (model != null && model.getRole().getCode() != null) {
+			if (model.getRole().getCode().equals("admin")) {
+				response.sendRedirect(request.getContextPath()+"/admin");
+			} else if (model.getRole().getCode().equals("user")) {
+				response.sendRedirect(request.getContextPath()+"/home");
+			}
 		} else {
 			response.sendRedirect(request.getContextPath()+"/login?action=login&message=invalid");
 		}
