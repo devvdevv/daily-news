@@ -43,12 +43,13 @@
 			</table>
 			<ul class="pagination" id="pagination"></ul>
 			<input type="hidden" id="page" name="page" value="">
-			<!-- <input type="hidden" id="itemsOnPage" name="itemsOnPage" value=""> -->
+			<input type="hidden" id="itemsOnPage" name="itemsOnPage" value="">
 		</form>
 	</div>
 	<script type="text/javascript">
-		var currentPage = ${page};
-		var totalPages = ${totalPages};
+		var currentPage = ${model.page};
+		var totalPages = ${model.totalPages};
+		var limit = 2;
 		$(function () {
 			window.pagObj = $('#pagination').twbsPagination({
 				totalPages: totalPages,
@@ -57,6 +58,7 @@
 				onPageClick: function (event, page) {
 					if(currentPage != page){
 						$("#page").val(page);
+						$("#itemsOnPage").val(limit);
 						$("#formSubmit").submit();
 					}
 				}

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import phambaolong.news.model.ArticleModel;
 import phambaolong.news.service.IArticleService;
+import phambaolong.news.utils.FormUtil;
 
 @WebServlet(urlPatterns = { "/admin-article" })
 public class ArticleController extends HttpServlet {
@@ -23,18 +24,22 @@ public class ArticleController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String page = request.getParameter("page");
-		int currentPage = Integer.parseInt(page);
-		request.setAttribute("page", currentPage);
+//		String page = request.getParameter("page");
+//		int currentPage = Integer.parseInt(page);
+//		request.setAttribute("page", currentPage);
+//		
+//		String itemsOnPageStr = request.getParameter("itemsOnPage");
+//		int itemsOnPage = Integer.parseInt(itemsOnPageStr);
+//		request.setAttribute("itemsOnPage", itemsOnPage);
 		
-		ArticleModel model = new ArticleModel();
-		int itemsOnPage = 1;
+		ArticleModel model = FormUtil.toModel(request, ArticleModel.class);
+		
 		model.setTotalItems(articleService.countAll());
-		int totalPages = (int) Math.ceil((double)(model.getTotalItems() / itemsOnPage));
-		request.setAttribute("totalPages", totalPages);
+		model.setTotalPages((int) Math.ceil((double) (model.getTotalItems() / model.getItemsOnPage())));
+//		request.setAttribute("totalPages", totalPages);
 		
-		Integer limit = itemsOnPage;
-		Integer offset = (currentPage - 1) * itemsOnPage;
+		Integer limit = model.getItemsOnPage();
+		Integer offset = (model.getPage() - 1) * limit;
 		model.setListItems(articleService.findAll(limit, offset));
 		request.setAttribute("model", model);
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/article/list-article.jsp");

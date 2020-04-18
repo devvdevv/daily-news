@@ -12,6 +12,9 @@ public abstract class AbstractModel<T> {
 	private Long[] listId;
 	private List<T> listItems;
 	private Integer totalItems;
+	private Integer page;
+	private Integer itemsOnPage;
+	private Integer totalPages;
 	
 	public Long getId() {
 		return id;
@@ -60,5 +63,23 @@ public abstract class AbstractModel<T> {
 	}
 	public void setTotalItems(Integer totalItems) {
 		this.totalItems = totalItems;
+	}
+	public Integer getPage() {
+		return page;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+	public Integer getItemsOnPage() {
+		return itemsOnPage;
+	}
+	public void setItemsOnPage(Integer itemsOnPage) {
+		this.itemsOnPage = itemsOnPage;
+	}
+	public Integer getTotalPages() {
+		return totalPages;
+	}
+	public void setTotalPages(Integer totalPages) {
+		this.totalPages = totalPages;
 	}
 }
