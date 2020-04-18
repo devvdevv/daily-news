@@ -23,6 +23,14 @@
 <body>
 	<div class="container">
 		<form action='<c:url value="/admin-article" />' id="formSubmit" method="GET">
+			<label for="sortBy"> Sort By:</label>
+			<select class="form-control col-md-2" id="sortBy" name="sortBy">
+				<option value="none" selected disabled hidden>${model.sortBy}</option> 
+				<option value="Latest">Latest</option>
+				<option value="Oldest">Oldest</option>
+			</select>
+
+			<br>
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
@@ -44,25 +52,35 @@
 			<ul class="pagination" id="pagination"></ul>
 			<input type="hidden" id="page" name="page" value="">
 			<input type="hidden" id="itemsOnPage" name="itemsOnPage" value="">
+			<!-- <button type="submit" class="btn btn-primary" id="sort">Sort</button> -->
 		</form>
 	</div>
 	<script type="text/javascript">
 		var currentPage = ${model.page};
 		var totalPages = ${model.totalPages};
 		var limit = 2;
+		var sortBy = "${model.sortBy}";
 		$(function () {
 			window.pagObj = $('#pagination').twbsPagination({
 				totalPages: totalPages,
 				visiblePages: 5,
 				startPage: currentPage,
 				onPageClick: function (event, page) {
-					if(currentPage != page){
+					if (currentPage != page) {
 						$("#page").val(page);
 						$("#itemsOnPage").val(limit);
+						$("#sortBy").val(sortBy);
 						$("#formSubmit").submit();
 					}
 				}
 			})
+		});
+		$(document).ready(function () {
+			$("#sortBy").change(function () {
+				$("#page").val(1);
+				$("#itemsOnPage").val(limit);
+				$("#formSubmit").submit();
+			});
 		});
 	</script>
 </body>

@@ -13,7 +13,7 @@ public class FormUtil {
 		Object object = null;
 		try {
 			object = clazz.newInstance();
-			System.out.println(request.getParameterMap());
+//			System.out.println(request.getParameterMap());
 			BeanUtils.populate(object,	request.getParameterMap());
 			return (T) object;
 		} catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {

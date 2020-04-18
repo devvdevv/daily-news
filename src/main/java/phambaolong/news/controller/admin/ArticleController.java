@@ -24,23 +24,13 @@ public class ArticleController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		String page = request.getParameter("page");
-//		int currentPage = Integer.parseInt(page);
-//		request.setAttribute("page", currentPage);
-//		
-//		String itemsOnPageStr = request.getParameter("itemsOnPage");
-//		int itemsOnPage = Integer.parseInt(itemsOnPageStr);
-//		request.setAttribute("itemsOnPage", itemsOnPage);
-		
 		ArticleModel model = FormUtil.toModel(request, ArticleModel.class);
-		
 		model.setTotalItems(articleService.countAll());
 		model.setTotalPages((int) Math.ceil((double) (model.getTotalItems() / model.getItemsOnPage())));
-//		request.setAttribute("totalPages", totalPages);
 		
 		Integer limit = model.getItemsOnPage();
 		Integer offset = (model.getPage() - 1) * limit;
-		model.setListItems(articleService.findAll(limit, offset));
+		model.setListItems(articleService.findAll(limit, offset, model.getSortBy()));
 		request.setAttribute("model", model);
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/article/list-article.jsp");
 		rd.forward(request, response);

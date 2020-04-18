@@ -15,6 +15,7 @@ public abstract class AbstractModel<T> {
 	private Integer page;
 	private Integer itemsOnPage;
 	private Integer totalPages;
+	private String sortBy;
 	
 	public Long getId() {
 		return id;
@@ -81,5 +82,11 @@ public abstract class AbstractModel<T> {
 	}
 	public void setTotalPages(Integer totalPages) {
 		this.totalPages = totalPages;
+	}
+	public String getSortBy() {
+		return sortBy;
+	}
+	public void setSortBy(String sortBy) {
+		this.sortBy = sortBy;
 	}
 }

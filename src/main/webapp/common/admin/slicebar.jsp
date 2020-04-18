@@ -43,7 +43,7 @@
 			</a>
 			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
-					<a class="collapse-item" href="/dailynews/admin-article?page=1&itemsOnPage=2">Article</a>
+					<a class="collapse-item" href="/dailynews/admin-article?sortBy=Latest&page=1&itemsOnPage=2">Article</a>
 					<a class="collapse-item" href="#">User</a>
 				</div>
 			</div>

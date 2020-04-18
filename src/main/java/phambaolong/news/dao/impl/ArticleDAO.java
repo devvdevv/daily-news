@@ -183,8 +183,14 @@ public class ArticleDAO implements IArticleDAO {
 	}
 
 	@Override
-	public List<ArticleModel> findAll(Integer limit, Integer offset) {
+	public List<ArticleModel> findAll(Integer limit, Integer offset, String sortBy) {
 		StringBuilder sql = new StringBuilder("SELECT * FROM article");
+		if (sortBy != null) {
+			if (sortBy.equals("Latest"))
+				sql.append(" ORDER BY createddate DESC");
+			else if (sortBy.equals("Oldest"))
+				sql.append(" ORDER BY createddate ASC");
+		}
 		if (limit != null && offset != null) {
 			sql.append(" LIMIT "+limit+" OFFSET "+offset);
 		}
