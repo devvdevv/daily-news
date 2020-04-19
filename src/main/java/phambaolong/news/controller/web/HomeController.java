@@ -1,6 +1,7 @@
 package phambaolong.news.controller.web;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -22,6 +23,8 @@ public class HomeController extends HttpServlet {
 	private IUserService userService;
 
 	private static final long serialVersionUID = -8064909454214279743L;
+	
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -29,7 +32,7 @@ public class HomeController extends HttpServlet {
 		String message = request.getParameter("message");
 		if (action != null && action.equals("login")) {
 			if (message != null) {
-				request.setAttribute("message", message);
+				request.setAttribute("message", resourceBundle.getString(message));
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("/views/login.jsp");
 			rd.forward(request, response);
