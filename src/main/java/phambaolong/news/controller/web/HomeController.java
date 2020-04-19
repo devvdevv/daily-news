@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import phambaolong.news.model.UserModel;
 import phambaolong.news.service.IUserService;
 import phambaolong.news.utils.FormUtil;
+import phambaolong.news.utils.SessionUtil;
 
-@WebServlet(urlPatterns = { "/home", "/login" })
+@WebServlet(urlPatterns = { "/home", "/enter", "/escape" })
 public class HomeController extends HttpServlet {
 
 	@Inject
@@ -32,7 +33,11 @@ public class HomeController extends HttpServlet {
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("/views/login.jsp");
 			rd.forward(request, response);
+		} else if (action != null && action.equals("logout")) {
+			SessionUtil.getInstance().removeValue(request, "USERMODEL");
+			response.sendRedirect(request.getContextPath()+"/enter?action=login");
 		} else {
+			SessionUtil.getInstance().getValue(request, "USERMODEL");
 			RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp");
 			rd.forward(request, response);
 		}
@@ -43,13 +48,14 @@ public class HomeController extends HttpServlet {
 		UserModel model = FormUtil.toModel(request, UserModel.class);
 		model = userService.findBy_username_password_status(model.getUsername(), model.getPassword(), 1);
 		if (model != null && model.getRole().getCode() != null) {
+			SessionUtil.getInstance().putValue(request, "USERMODEL", model);
 			if (model.getRole().getCode().equals("admin")) {
 				response.sendRedirect(request.getContextPath()+"/admin");
 			} else if (model.getRole().getCode().equals("user")) {
 				response.sendRedirect(request.getContextPath()+"/home");
 			}
 		} else {
-			response.sendRedirect(request.getContextPath()+"/login?action=login&message=invalid");
+			response.sendRedirect(request.getContextPath()+"/enter?action=login&message=invalid");
 		}
 
 	}

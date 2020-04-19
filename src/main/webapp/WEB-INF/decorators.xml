@@ -15,7 +15,7 @@
   </decorator>
   
   <decorator name="login" page="login-default.jsp">
-    <pattern>/login*</pattern>
+    <pattern>/enter*</pattern>
   </decorator>
   
 </decorators>
