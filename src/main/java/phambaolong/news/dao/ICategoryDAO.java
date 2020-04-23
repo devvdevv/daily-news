@@ -6,4 +6,5 @@ import phambaolong.news.model.CategoryModel;
 
 public interface ICategoryDAO {
 	List<CategoryModel> findAll();
+	CategoryModel findOneByCode(String code);
 }

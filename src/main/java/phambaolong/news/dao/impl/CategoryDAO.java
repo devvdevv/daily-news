@@ -62,4 +62,39 @@ public class CategoryDAO implements ICategoryDAO {
 		}
 	}
 
+	@Override
+	public CategoryModel findOneByCode(String code) {
+		String sql = "SELECT * FROM category WHERE code = ?";
+		CategoryModel category = new CategoryModel();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, code);
+			result = statement.executeQuery();
+			while (result.next()) {
+				category.setId(result.getLong("id"));
+				category.setName(result.getString("name"));
+				category.setCode(result.getString("code"));
+				category.setShortDescription(result.getString("shortdescription"));
+			}
+			return category;
+		} catch (SQLException e) {
+			return null;
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+				if (statement != null)
+					statement.close();
+				if (result != null)
+					result.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 }

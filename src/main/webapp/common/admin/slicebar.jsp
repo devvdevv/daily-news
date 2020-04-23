@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 
@@ -13,7 +14,7 @@
 	<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 		<!-- Sidebar - Brand -->
-		<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dailynews/admin">
+		<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value='/admin' />">
 			<!-- <div class="sidebar-brand-icon rotate-n-15">
 				<i class="fas fa-laugh-wink"></i>
 			</div> -->
@@ -43,12 +44,12 @@
 			</a>
 			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
-					<a class="collapse-item" href="/dailynews/admin-article?sortBy=Latest&page=1&itemsOnPage=2">Article</a>
+					<a class="collapse-item" href="<c:url value='/admin-article?type=list&sortBy=Latest&page=1&itemsOnPage=2' />" >Article</a>
 					<a class="collapse-item" href="#">User</a>
 				</div>
 			</div>
 		</li>
-
+		
 		<!-- Nav Item - Utilities Collapse Menu -->
 		<li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse"
 				data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities"> <i

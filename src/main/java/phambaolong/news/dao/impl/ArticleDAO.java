@@ -94,7 +94,9 @@ public class ArticleDAO implements IArticleDAO {
 			result = statement.executeQuery();
 			while(result.next()) {
 				article.setId(result.getLong("id"));
+				article.setTitle(result.getString("title"));
 				article.setThumbnail(result.getString("thumbnail"));
+				article.setShortDescription(result.getString("shortdescription"));
 				article.setContent(result.getString("content"));
 				article.setUserId(result.getLong("user_id"));
 				article.setCategoryId(result.getLong("category_id"));
@@ -217,8 +219,12 @@ public class ArticleDAO implements IArticleDAO {
 				ArticleModel article = new ArticleModel();
 				article.setId(result.getLong("id"));
 				article.setTitle(result.getString("title"));
+				article.setThumbnail(result.getString("thumbnail"));
 				article.setShortDescription(result.getString("shortdescription"));
 				article.setContent(result.getString("content"));
+				article.setCategoryId(result.getLong("category_id"));
+				article.setUserId(result.getLong("user_id"));
+				article.setCreatedBy(result.getString("createdby"));
 				listArticle.add(article);
 			}
 			return listArticle;

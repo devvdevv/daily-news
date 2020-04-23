@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 
@@ -77,13 +78,13 @@
 						Activity Log
 					</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="/dailynews/escape?action=logout">
+					<a class="dropdown-item" href="<c:url value='/escape?action=logout' />">
 						<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 						Logout
 					</a>
 				</div>
 			</li>
-
+			
 		</ul>
 
 	</nav>
