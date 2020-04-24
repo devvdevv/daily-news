@@ -36,11 +36,12 @@ public class ArticleController extends HttpServlet {
 		if (model.getType().equals("list")) {
 			model.setTotalItems(articleService.countAll());
 			model.setTotalPages(PagingUtil.getTotalPages(model.getTotalItems(), model.getItemsOnPage()));
-//			model.setTotalPages((int) Math.ceil((double) (model.getTotalItems() / model.getItemsOnPage())));
 
 			Integer limit = model.getItemsOnPage();
 			Integer offset = (model.getPage() - 1) * limit;
 			model.setListItems(articleService.findAll(limit, offset, model.getSortBy()));
+			String message = request.getParameter("message");
+			request.setAttribute("message", message);
 			view = "/views/admin/article/list-article.jsp";
 		} else if (model.getType().equals("edit")) {
 			if (model.getId() != null) {

@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="/common/taglib.jsp"%>
 <c:url var='urlAPI' value='/api-admin-article' />
+<c:url var='listURL' value='/admin-article?type=list&sortBy=Latest&page=1&itemsOnPage=2' />
 <!DOCTYPE html>
 <html>
 
@@ -99,6 +100,7 @@
 				dataType: 'json',
 				success: function(e){
 					console.log(e);
+					window.location.href = "${listURL}&message=create_success";
 				},
 				error: function(e) {
 					console.log(e);
@@ -115,6 +117,7 @@
 				dataType: 'json',
 				success: function(e){
 					console.log(e);
+					window.location.href = "${listURL}&message=update_success";
 				},
 				error: function(e) {
 					console.log(e);

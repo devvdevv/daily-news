@@ -24,8 +24,13 @@
 
 <body>
 	<div class="container">
+		<c:if test="${not empty message}">
+			<div class="alert alert-success" role="alert">
+				${message}
+			</div>
+		</c:if>
 		<form action='<c:url value="/admin-article" />' id="formSubmit" method="GET">
-		<label for="sortBy"> Sort By:</label>
+			<label for="sortBy"> Sort By:</label>
 			<div class="row">
 				<div class="col-6 col-md-4">
 					<select class="form-control col-md-6" id="sortBy" name="sortBy">
@@ -38,12 +43,13 @@
 				<div class="col-6 col-md-4"></div>
 				<div class="col-6 col-md-4">
 					<div class="float-right create-and-delete">
-						
-						<a class="btn btn-success" href="<c:url value='/admin-article?type=edit'/> " role="button" id="create-new-btn" title="Create">
+
+						<a class="btn btn-success" href="<c:url value='/admin-article?type=edit'/> " role="button"
+							id="create-new-btn" title="Create">
 							<i class="fas fa-plus"></i>
 						</a>
-						
-						<button class="btn btn-danger" type="button" id="delete-btn" title="Delete">
+
+						<button class="btn btn-danger" id="btn-pre-delete" type="button" data-toggle="modal" data-target="#delete-modal" title="Delete">
 							<i class="fas fa-trash-alt"></i>
 						</button>
 					</div>
@@ -70,7 +76,8 @@
 							<td>${item.shortDescription}</td>
 							<td>${item.createdBy}</td>
 							<td>
-								<a class="btn btn btn-warning" href="<c:url value='/admin-article?type=edit&id=${item.id}' />" role="button">
+								<a class="btn btn btn-warning"
+									href="<c:url value='/admin-article?type=edit&id=${item.id}' />" role="button">
 									<!-- <input type="hidden" id="id" name="id" value="${item.id}" /> -->
 									<i class="fas fa-pen"></i>
 								</a>
@@ -85,6 +92,28 @@
 			<input type="hidden" id="itemsOnPage" name="itemsOnPage" value="">
 			<!-- <button type="submit" class="btn btn-primary" id="sort">Sort</button> -->
 		</form>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="delete-modal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Are you sure ?</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>You are going to delete <inline id="total-delete-items"></inline> article(s).</p>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal" id="delete-btn"><i class="fas fa-trash-alt"></i> Delete</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
 	</div>
 	<script type="text/javascript">
 		var currentPage = ${model.page};
@@ -115,18 +144,26 @@
 			});
 		});
 
-		$('#checkAll').click(function(){
-			if ($('#checkAll').is(':checked')){
-				$("tbody input[name = 'check-model']").prop('checked',true);
+		$('#checkAll').click(function () {
+			if ($('#checkAll').is(':checked')) {
+				$("tbody input[name = 'check-model']").prop('checked', true);
 			} else {
-				$("tbody input[name = 'check-model']").prop('checked',false);
+				$("tbody input[name = 'check-model']").prop('checked', false);
 			}
 		});
 
-		$('#delete-btn').click(function(){
+		$('#btn-pre-delete').click(function() {
+			var numberOfitem = 0;
+			$.each($("tbody input[name = 'check-model']:checked"), function (index, item) {
+				numberOfitem++;
+			});
+			$('#total-delete-items').text(numberOfitem);
+		});
+
+		$('#delete-btn').click(function () {
 			var data = {};
 			var listCheckbox = [];
-			$.each($("tbody input[name = 'check-model']:checked"), function(index, item) {
+			$.each($("tbody input[name = 'check-model']:checked"), function (index, item) {
 				listCheckbox.push(item.value);
 			});
 			data["listId"] = listCheckbox;
@@ -141,15 +178,14 @@
 				contentType: 'application/json',
 				data: JSON.stringify(data),
 				dataType: 'json',
-				success: function(e){
-					window.location.href = "${listURL}";
+				success: function (e) {
+					window.location.href = "${listURL}&message=detele_success";
 				},
-				error: function(e) {
+				error: function (e) {
 					console.log(e);
 				}
 			})
 		}
-
 	</script>
 </body>
 
