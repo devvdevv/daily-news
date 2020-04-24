@@ -16,6 +16,7 @@ import phambaolong.news.model.CategoryModel;
 import phambaolong.news.service.IArticleService;
 import phambaolong.news.service.ICategoryService;
 import phambaolong.news.utils.FormUtil;
+import phambaolong.news.utils.PagingUtil;
 
 @WebServlet(urlPatterns = { "/admin-article" })
 public class ArticleController extends HttpServlet {
@@ -34,7 +35,8 @@ public class ArticleController extends HttpServlet {
 		String view = "";
 		if (model.getType().equals("list")) {
 			model.setTotalItems(articleService.countAll());
-			model.setTotalPages((int) Math.ceil((double) (model.getTotalItems() / model.getItemsOnPage())));
+			model.setTotalPages(PagingUtil.getTotalPages(model.getTotalItems(), model.getItemsOnPage()));
+//			model.setTotalPages((int) Math.ceil((double) (model.getTotalItems() / model.getItemsOnPage())));
 
 			Integer limit = model.getItemsOnPage();
 			Integer offset = (model.getPage() - 1) * limit;

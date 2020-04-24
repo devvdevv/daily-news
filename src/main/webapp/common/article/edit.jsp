@@ -65,6 +65,7 @@
 					<button type="button" class="btn btn-primary" id="create-update">Publish</button>
 				</c:if>
 			</div>
+			<input type="hidden" class="form-control" id="id" name="id" value="${model.id}">
 		</form>
 	</div>
 	<script>
@@ -80,14 +81,13 @@
 				data[""+item.name+""] = item.value;
 			});
 			data["content"] = editor.getData();
-			var id = ${model.id};
-			if (id != null){
+			var id = $("#id").val();
+			if (id == ""){
+				createNew(data);				
+			} else {
 				data["id"] = id;
 				update(data);
-			} else {
-				createNew(data);				
 			}
-			// console.log(data);
 		});
 
 		function createNew(data) {
