@@ -225,6 +225,7 @@ public class ArticleDAO implements IArticleDAO {
 				article.setCategoryId(result.getLong("category_id"));
 				article.setUserId(result.getLong("user_id"));
 				article.setCreatedBy(result.getString("createdby"));
+				article.setCreatedDate(result.getTimestamp("createddate"));
 				listArticle.add(article);
 			}
 			return listArticle;

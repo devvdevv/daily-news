@@ -41,14 +41,18 @@
 			<div class="form-group row">
 				<label for="short-description" class="col-sm-2 col-form-label">Short Description</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="shortDescription" name="shortDescription" value="${model.shortDescription}">
+					<input type="text" class="form-control" id="shortDescription" name="shortDescription"
+						value="${model.shortDescription}">
 				</div>
 			</div>
 			<br>
 			<div class="form-group row">
 				<label for="thumbnail" class="col-sm-2 col-form-label">Thumbnail</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="thumbnail" name="thumbnail" value="${model.thumbnail}">
+					<!-- <input type="text" class="form-control" id="thumbnail" name="thumbnail" value="${model.thumbnail}"> -->
+					<input type="file" class="form-control" id="thumbnail" name="thumbnail">
+				</div>
+				<div class="form-group">
 				</div>
 			</div>
 			<br>
@@ -71,20 +75,21 @@
 	</div>
 	<script>
 		var editor;
-		$('document').ready(function() {
+		$('document').ready(function () {
 			editor = CKEDITOR.replace('content-area');
 		});
 
-		$('#create-update').click(function(){
+		$('#create-update').click(function () {
 			var data = {};
 			var dataForm = $('#formSubmit').serializeArray();
-			$(dataForm).each(function(index, item) {
-				data[""+item.name+""] = item.value;
+			$(dataForm).each(function (index, item) {
+				data["" + item.name + ""] = item.value;
 			});
 			data["content"] = editor.getData();
 			var id = $("#id").val();
-			if (id == ""){
-				createNew(data);				
+			console.log(data);
+			if (id == "") {
+				createNew(data);
 			} else {
 				data["id"] = id;
 				update(data);
@@ -98,11 +103,11 @@
 				contentType: 'application/json',
 				data: JSON.stringify(data),
 				dataType: 'json',
-				success: function(e){
+				success: function (e) {
 					console.log(e);
-					window.location.href = "${listURL}&message=create_success";
+					// window.location.href = "${listURL}&message=create_success";
 				},
-				error: function(e) {
+				error: function (e) {
 					console.log(e);
 				}
 			})
@@ -115,11 +120,11 @@
 				contentType: 'application/json',
 				data: JSON.stringify(data),
 				dataType: 'json',
-				success: function(e){
+				success: function (e) {
 					console.log(e);
 					window.location.href = "${listURL}&message=update_success";
 				},
-				error: function(e) {
+				error: function (e) {
 					console.log(e);
 				}
 			})

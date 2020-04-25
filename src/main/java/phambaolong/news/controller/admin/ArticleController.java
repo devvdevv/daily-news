@@ -16,6 +16,7 @@ import phambaolong.news.model.CategoryModel;
 import phambaolong.news.service.IArticleService;
 import phambaolong.news.service.ICategoryService;
 import phambaolong.news.utils.FormUtil;
+import phambaolong.news.utils.MessageUtil;
 import phambaolong.news.utils.PagingUtil;
 
 @WebServlet(urlPatterns = { "/admin-article" })
@@ -41,7 +42,7 @@ public class ArticleController extends HttpServlet {
 			Integer offset = (model.getPage() - 1) * limit;
 			model.setListItems(articleService.findAll(limit, offset, model.getSortBy()));
 			String message = request.getParameter("message");
-			request.setAttribute("message", message);
+			request.setAttribute("message", MessageUtil.getMessage(message));
 			view = "/views/admin/article/list-article.jsp";
 		} else if (model.getType().equals("edit")) {
 			if (model.getId() != null) {
