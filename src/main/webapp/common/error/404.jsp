@@ -19,8 +19,8 @@
 </head>
 
 <body>
-  <div id="content-wrapper" style="height: 77vh;">
-    <div class="container-fluid" >
+  <div id="content-wrapper">
+    <div class="container-fluid">
   
       <!-- 404 Error Text -->
       <div class="text-center">

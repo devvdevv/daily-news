@@ -22,16 +22,14 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<a class="btn btn-primary" href="#" role="button" style="margin-right: 12px;">Write a post!</a>
+					<a class="btn btn-primary" href='<c:url value="/article?type=edit" />' role="button" style="margin-right: 12px;">Write a post!</a>
 
 					<c:if test="${not empty USERMODEL}">
 						<div class="btn-group">
 							<a class="btn btn-outline-dark dropdown-toggle" href="" role="button" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false">${USERMODEL.username}</a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">Action</a>
-								<a class="dropdown-item" href="#">Another action</a>
-								<a class="dropdown-item" href="#">Something else here</a>
+								<a class="dropdown-item" href="<c:url value='/article?type=list&categoryId=0' />">My Stories</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<c:url value='/escape?action=logout' />">Logout</a>
 							</div>

@@ -50,4 +50,14 @@ public class ArticleService implements IArticleService {
 		return articleDAO.countAll();
 	}
 
+	@Override
+	public List<ArticleModel> findByCategoryId(Long categoryId) {
+		return articleDAO.findByCategoryId(categoryId);
+	}
+
+	@Override
+	public List<ArticleModel> findByUser(Long id) {
+		return articleDAO.findByUser(id);
+	}
+
 }

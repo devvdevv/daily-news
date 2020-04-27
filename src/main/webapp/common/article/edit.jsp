@@ -2,7 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="/common/taglib.jsp"%>
 <c:url var='urlAPI' value='/api-admin-article' />
-<c:url var='listURL' value='/admin-article?type=list&sortBy=Latest&page=1&itemsOnPage=2' />
+<c:url var='listURL' value='/article?type=list&categoryId=0' />
+<c:url var='listAdminURL' value='/admin-article?type=list&sortBy=Latest&page=1&itemsOnPage=2' />
 <!DOCTYPE html>
 <html>
 
@@ -13,6 +14,7 @@
 
 <body>
 	<div class="container">
+		<br>
 		<form id="formSubmit">
 			<div class="form-group row">
 				<label for="category" class="col-sm-2 col-form-label">Category</label>
@@ -96,6 +98,7 @@
 			}
 		});
 
+		var roleId = ${USERMODEL.roleId};
 		function createNew(data) {
 			$.ajax({
 				url: '${urlAPI}',
@@ -104,8 +107,11 @@
 				data: JSON.stringify(data),
 				dataType: 'json',
 				success: function (e) {
-					console.log(e);
-					// window.location.href = "${listURL}&message=create_success";
+					if (roleId == 1) {
+						window.location.href = "${listAdminURL}&message=create_success";
+					} else {
+						window.location.href = "${listURL}&message=create_success";
+					}
 				},
 				error: function (e) {
 					console.log(e);
@@ -121,8 +127,11 @@
 				data: JSON.stringify(data),
 				dataType: 'json',
 				success: function (e) {
-					console.log(e);
-					window.location.href = "${listURL}&message=update_success";
+					if (roleId == 1) {
+						window.location.href = "${listAdminURL}&message=update_success";
+					} else {
+						window.location.href = "${listURL}&message=update_success";
+					}
 				},
 				error: function (e) {
 					console.log(e);

@@ -1,26 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <%@ include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-	<meta charset="ISO-8859-1">
-	<title>Home title</title>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
 </head>
-
 <body>
 	<!-- Page Content -->
 	<div class="container">
-
+		<c:if test="${not empty message}">
+			<br>
+			<div class="alert alert-success" role="alert">
+			  ${message}
+			</div>
+		</c:if>
 		<div class="row">
 
 			<!-- Blog Entries Column -->
-			<div class="col-md-8">
+			<div class="col-md-8" style="margin: auto;">
 
-				<!-- <h1 class="my-4">
-					Page Heading <small>Secondary Text</small>
-				</h1> -->
+				<h1 class="my-4">
+					<b>My Stories</b>
+				</h1>
+
 				<c:forEach var="item" items="${model.listItems}">
 					<br>
 					<!-- Blog Post -->
@@ -42,38 +46,14 @@
 						<c:set value="${item.createdDate}" var="date" />
 						<div class="card-footer text-muted">
 							By <a href="#">${item.createdBy}</a> <fmt:formatDate value="${date}" pattern="dd/MM/yyyy"/>
+							<a class="btn btn-warning btn-sm" href="<c:url value='/article?type=edit&id=${item.id}'/>" role="button" style="float: right;">Update</a>
 						</div>
 					</div>
 				</c:forEach>
 
 			</div>
-
-			<!-- Sidebar Widgets Column -->
-			<div class="col-md-4">
-
-				<!-- Categories Widget -->
-				<div class="card my-4">
-					<h5 class="card-header">Categories</h5>
-					<div class="card-body">
-						<h5>
-							<c:forEach var="item" items="${categories}">
-								<c:if test="${model.categoryId == item.id}">
-									<a href='<c:url value="/article?type=list&categoryId=${item.id}" />' class="badge badge-pill badge-primary">${item.name}</a>
-								</c:if>
-								<c:if test="${model.categoryId != item.id}">
-									<a href='<c:url value="/article?type=list&categoryId=${item.id}" />' class="badge badge-pill badge-secondary">${item.name}</a>
-								</c:if>
-							</c:forEach>
-						</h5>
-
-					</div>
-				</div>
-
-			</div>
-
 		</div>
 
 	</div>
 </body>
-
 </html>
