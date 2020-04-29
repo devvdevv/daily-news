@@ -1,5 +1,6 @@
 # daily-news
 Hi, This is a blog-hub website - DailyNews
+
 Technologies: jsp, servlet, jdbc.
 
 Demo clip: https://youtu.be/nPFpJ3lvEw4
