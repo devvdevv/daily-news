@@ -7,6 +7,7 @@ public class ArticleModel extends AbstractModel<ArticleModel> {
 	private String content;
 	private Long categoryId;
 	private Long userId;
+	private String type;
 	
 	public String getTitle() {
 		return title;
@@ -43,5 +44,11 @@ public class ArticleModel extends AbstractModel<ArticleModel> {
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 }

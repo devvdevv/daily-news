@@ -94,7 +94,9 @@ public class ArticleDAO implements IArticleDAO {
 			result = statement.executeQuery();
 			while(result.next()) {
 				article.setId(result.getLong("id"));
+				article.setTitle(result.getString("title"));
 				article.setThumbnail(result.getString("thumbnail"));
+				article.setShortDescription(result.getString("shortdescription"));
 				article.setContent(result.getString("content"));
 				article.setUserId(result.getLong("user_id"));
 				article.setCategoryId(result.getLong("category_id"));
@@ -217,8 +219,13 @@ public class ArticleDAO implements IArticleDAO {
 				ArticleModel article = new ArticleModel();
 				article.setId(result.getLong("id"));
 				article.setTitle(result.getString("title"));
+				article.setThumbnail(result.getString("thumbnail"));
 				article.setShortDescription(result.getString("shortdescription"));
 				article.setContent(result.getString("content"));
+				article.setCategoryId(result.getLong("category_id"));
+				article.setUserId(result.getLong("user_id"));
+				article.setCreatedBy(result.getString("createdby"));
+				article.setCreatedDate(result.getTimestamp("createddate"));
 				listArticle.add(article);
 			}
 			return listArticle;
@@ -253,6 +260,90 @@ public class ArticleDAO implements IArticleDAO {
 				counter = result.getInt(1);
 			}
 			return counter;
+		} catch (SQLException e) {
+			return null;
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+				if (statement != null)
+					statement.close();
+				if (result != null)
+					result.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public List<ArticleModel> findByCategoryId(Long id) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM article WHERE category_id = ?");
+		List<ArticleModel> listArticle = new ArrayList<ArticleModel>();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(sql.toString());
+			statement.setLong(1, id);
+			result = statement.executeQuery();
+			while (result.next()) {
+				ArticleModel article = new ArticleModel();
+				article.setId(result.getLong("id"));
+				article.setTitle(result.getString("title"));
+				article.setThumbnail(result.getString("thumbnail"));
+				article.setShortDescription(result.getString("shortdescription"));
+				article.setContent(result.getString("content"));
+				article.setCategoryId(result.getLong("category_id"));
+				article.setUserId(result.getLong("user_id"));
+				article.setCreatedBy(result.getString("createdby"));
+				article.setCreatedDate(result.getTimestamp("createddate"));
+				listArticle.add(article);
+			}
+			return listArticle;
+		} catch (SQLException e) {
+			return null;
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+				if (statement != null)
+					statement.close();
+				if (result != null)
+					result.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public List<ArticleModel> findByUser(Long id) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM article WHERE user_id = ?");
+		List<ArticleModel> listArticle = new ArrayList<ArticleModel>();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(sql.toString());
+			statement.setLong(1, id);
+			result = statement.executeQuery();
+			while (result.next()) {
+				ArticleModel article = new ArticleModel();
+				article.setId(result.getLong("id"));
+				article.setTitle(result.getString("title"));
+				article.setThumbnail(result.getString("thumbnail"));
+				article.setShortDescription(result.getString("shortdescription"));
+				article.setContent(result.getString("content"));
+				article.setCategoryId(result.getLong("category_id"));
+				article.setUserId(result.getLong("user_id"));
+				article.setCreatedBy(result.getString("createdby"));
+				article.setCreatedDate(result.getTimestamp("createddate"));
+				listArticle.add(article);
+			}
+			return listArticle;
 		} catch (SQLException e) {
 			return null;
 		} finally {

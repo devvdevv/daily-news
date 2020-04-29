@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import phambaolong.news.model.ArticleModel;
+import phambaolong.news.model.UserModel;
 import phambaolong.news.service.IArticleService;
 import phambaolong.news.utils.HttpUtils;
+import phambaolong.news.utils.SessionUtil;
 
 @WebServlet(urlPatterns = { "/api-admin-article" })
 public class ArticleAPI extends HttpServlet {
@@ -27,6 +29,8 @@ public class ArticleAPI extends HttpServlet {
 		response.setContentType("application/json");
 
 		ArticleModel newArticle = HttpUtils.toString(request.getReader()).toModel(ArticleModel.class);
+		newArticle.setCreatedBy(((UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL")).getUsername());
+		newArticle.setUserId(((UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL")).getId());
 		newArticle = articleService.save(newArticle);
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -38,6 +42,7 @@ public class ArticleAPI extends HttpServlet {
 		response.setContentType("application/json");
 		
 		ArticleModel updatedArticle = HttpUtils.toString(request.getReader()).toModel(ArticleModel.class);
+		updatedArticle.setModifiedBy(((UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL")).getUsername());
 		updatedArticle = articleService.update(updatedArticle);
 		
 		ObjectMapper mapper = new ObjectMapper();

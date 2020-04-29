@@ -20,7 +20,9 @@
 	<script src="<c:url value='/style/admin/vendor/jquery/jquery.min.js' />"></script>
 	<!-- pagin -->
 	<script src="<c:url value='/style/pagination/jquery.twbsPagination.js' />" type="text/javascript"></script>
-
+	<!-- ckeditor -->
+	<script src="<c:url value='/ckeditor/ckeditor.js' />"></script>
+	
 
 </head>
 
