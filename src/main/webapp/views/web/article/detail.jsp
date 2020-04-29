@@ -29,7 +29,8 @@
                 <hr>
 
                 <!-- Date/Time -->
-                <p>Posted on January 1, 2019 at 12:00 PM</p>
+                <c:set value="${model.createdDate}" var="date" />
+                <p>Posted on <fmt:formatDate value="${date}" pattern="dd/MM/yyyy"/></p>
 
                 <hr>
 
