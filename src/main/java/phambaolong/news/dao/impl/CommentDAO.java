@@ -154,4 +154,36 @@ public class CommentDAO implements ICommentDAO {
 			}
 		}
 	}
+
+	@Override
+	public void deleteByArticleId(Long articleId) {
+		String sql = "DELETE FROM comment WHERE article_id = ?";
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = getConnection();
+			connection.setAutoCommit(false);
+			statement = connection.prepareStatement(sql);
+			statement.setLong(1, articleId);
+			statement.executeUpdate();
+			connection.commit();
+		} catch (SQLException e) {
+			if (connection != null) {
+				try {
+					connection.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+				if (statement != null)
+					statement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

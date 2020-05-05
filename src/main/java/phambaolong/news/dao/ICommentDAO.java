@@ -8,4 +8,5 @@ public interface ICommentDAO {
 	Long save(CommentModel comment);
 	CommentModel findOne(Long id);
 	List<CommentModel> findByArticle(Long articleId);
+	void deleteByArticleId(Long articleId);
 }
