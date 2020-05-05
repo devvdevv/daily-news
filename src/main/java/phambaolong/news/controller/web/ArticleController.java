@@ -16,6 +16,7 @@ import phambaolong.news.model.CategoryModel;
 import phambaolong.news.model.UserModel;
 import phambaolong.news.service.IArticleService;
 import phambaolong.news.service.ICategoryService;
+import phambaolong.news.service.ICommentService;
 import phambaolong.news.utils.FormUtil;
 import phambaolong.news.utils.MessageUtil;
 import phambaolong.news.utils.SessionUtil;
@@ -29,6 +30,9 @@ public class ArticleController extends HttpServlet{
 	@Inject
 	private ICategoryService categoryService;
 	
+	@Inject
+	private ICommentService commentService;
+	
 	private static final long serialVersionUID = -1580614207126965275L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,6 +44,7 @@ public class ArticleController extends HttpServlet{
 			if (model.getId() != null) {
 				model = articleService.findOne(model.getId());
 				if (model != null) {
+					model.setListComment(commentService.findByArticle(model.getId()));
 					view = "/views/web/article/detail.jsp";
 				} else {
 					view = "/common/error/404.jsp";
