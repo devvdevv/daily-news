@@ -9,3 +9,6 @@ Update 29/4/2020
 - guest can view all articles
 - user can create and update articles
 - admin can create, update, delete articles
+
+Update 5/5/2020 
+- user/admin can comment in view detail article page.
