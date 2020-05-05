@@ -19,7 +19,7 @@ public class HttpUtils {
 		try {
 			while((line = reader.readLine()) != null) {
 				jsonToString.append(line);
-//				System.out.println(jsonToString.toString());
+				System.out.println(jsonToString.toString());
 			}
 			return new HttpUtils(jsonToString.toString());
 		} catch (IOException e) {

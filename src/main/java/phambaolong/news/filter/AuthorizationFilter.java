@@ -29,7 +29,7 @@ public class AuthorizationFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		String url = request.getRequestURI();
-		System.out.println(url);
+//		System.out.println(url);
 		if (url.startsWith("/dailynews/admin")) {
 			UserModel model = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 			if (model != null) {

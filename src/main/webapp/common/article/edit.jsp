@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="/common/taglib.jsp"%>
 <c:url var='urlAPI' value='/api-admin-article' />
+<c:url var='urlFileAPI' value='/api-upload-file' />
 <c:url var='listURL' value='/article?type=list&categoryId=0' />
 <c:url var='listAdminURL' value='/admin-article?type=list&sortBy=Latest&page=1&itemsOnPage=2' />
 <!DOCTYPE html>
@@ -52,7 +53,7 @@
 				<label for="thumbnail" class="col-sm-2 col-form-label">Thumbnail</label>
 				<div class="col-sm-10">
 					<!-- <input type="text" class="form-control" id="thumbnail" name="thumbnail" value="${model.thumbnail}"> -->
-					<input type="file" class="form-control" id="thumbnail" name="thumbnail">
+					<input type="file" class="form-control" id="thumbnail" name="thumbnail" onchange="uploadFile()">
 				</div>
 				<div class="form-group">
 				</div>
@@ -82,14 +83,14 @@
 		});
 
 		$('#create-update').click(function () {
-			var data = {};
+			var data = new FormData();
 			var dataForm = $('#formSubmit').serializeArray();
 			$(dataForm).each(function (index, item) {
-				data["" + item.name + ""] = item.value;
+				data[item.name] = item.value;
 			});
 			data["content"] = editor.getData();
+
 			var id = $("#id").val();
-			console.log(data);
 			if (id == "") {
 				createNew(data);
 			} else {
@@ -137,6 +138,30 @@
 					console.log(e);
 				}
 			})
+		}
+
+		function uploadFile() {
+			// var file = $('#thumbnail')[0].files[0];
+			// var data = {};
+			// data['file'] = file;
+			// console.log(data);
+			// if (file){
+			// 	$.ajax({
+			// 	url: '${urlFileAPI}',
+			// 	type: 'POST',
+			// 	enctype: 'multipart/form-data',
+			// 	contentType: false,
+			// 	processData: false,
+			// 	data: data,
+			// 	dataType: 'json',
+			// 	success: function (e) {
+			// 		console.log(e);
+			// 	},
+			// 	error: function (e) {
+			// 		console.log(e);
+			// 	}
+			// })
+			// }
 		}
 	</script>
 </body>

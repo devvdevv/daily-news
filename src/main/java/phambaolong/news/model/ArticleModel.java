@@ -1,5 +1,7 @@
 package phambaolong.news.model;
 
+import java.util.List;
+
 public class ArticleModel extends AbstractModel<ArticleModel> {
 	private String title;
 	private String thumbnail;
@@ -8,6 +10,7 @@ public class ArticleModel extends AbstractModel<ArticleModel> {
 	private Long categoryId;
 	private Long userId;
 	private String type;
+	private List<CommentModel> listComment;
 	
 	public String getTitle() {
 		return title;
@@ -50,5 +53,11 @@ public class ArticleModel extends AbstractModel<ArticleModel> {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public List<CommentModel> getListComment() {
+		return listComment;
+	}
+	public void setListComment(List<CommentModel> listComment) {
+		this.listComment = listComment;
 	}
 }

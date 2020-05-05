@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import phambaolong.news.dao.IArticleDAO;
+import phambaolong.news.dao.ICommentDAO;
 import phambaolong.news.model.ArticleModel;
 import phambaolong.news.service.IArticleService;
 
@@ -12,6 +13,9 @@ public class ArticleService implements IArticleService {
 	
 	@Inject
 	private IArticleDAO articleDAO;
+	
+	@Inject
+	private ICommentDAO commentDAO;
 	
 	@Override
 	public ArticleModel save(ArticleModel newArticle) {
@@ -36,6 +40,7 @@ public class ArticleService implements IArticleService {
 			// article has a relationship with comment (article-id)
 			// so check does it have any comment belong.
 			// if yes => delete them first then delete article.
+			commentDAO.deleteByArticleId(id);
 			articleDAO.delete(id);
 		}
 	}
